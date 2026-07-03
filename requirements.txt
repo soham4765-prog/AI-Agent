@@ -5,6 +5,7 @@ langchain-community
 langchain-google-genai
 google-generativeai
 duckduckgo-search
+ddgs
 langsmith
 pydantic
 tiktoken
