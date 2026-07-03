@@ -26,10 +26,10 @@ st.write("LangChain + Gemini + DuckDuckGo Search")
 # =====================================
 # LLM
 # =====================================
-
+api_key = st.secrets["GOOGLE_API_KEY"]
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash-lite",
-    google_api_key="YOUR_GEMINI_API_KEY",
+    google_api_key=api_key,
     temperature=0.3,
 )
 
