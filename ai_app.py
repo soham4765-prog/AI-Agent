@@ -1,6 +1,7 @@
 import streamlit as st
-
-from langchain_google_genai import ChatGoogleGenerativeAI
+import os
+from langchain_huggingface import HuggingFaceEndpoint
+from langchain_huggingface import ChatHuggingFace
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
 from langchain_community.tools import DuckDuckGoSearchResults
@@ -26,12 +27,17 @@ st.write("LangChain + Gemini + DuckDuckGo Search")
 # =====================================
 # LLM
 # =====================================
-api_key = st.secrets["GOOGLE_API_KEY"]
-llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash",
-    google_api_key=api_key,
+
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+
+base_llm = HuggingFaceEndpoint(
+    repo_id="meta-llama/Llama-3.1-8B-Instruct",
+    task="text-generation",
+    max_new_tokens=512,
     temperature=0.3,
 )
+
+llm = ChatHuggingFace(llm=base_llm)
 
 # =====================================
 # TOOLS
